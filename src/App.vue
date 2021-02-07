@@ -1,16 +1,15 @@
 <template>
-  <div>
-    <landing v-if="!isAuthenticated" />
-    <template v-else>
-      <nav>
-        <router-link to="/home">Home</router-link>
-        <router-link to="/search"> Search</router-link>
-        <router-link to="/create"> Create</router-link>
-        <button @click="logOut">logout</button>
-      </nav>
-      <router-view> </router-view>
-    </template>
-  </div>
+  <landing v-if="!isAuthenticated" />
+
+  <header v-if="isAuthenticated">
+    <nav class="global__nav">
+      <router-link cass="global__nav-link" to="/home">Home</router-link>
+      <router-link to="/search"> Search</router-link>
+      <router-link to="/create"> Create</router-link>
+    </nav>
+    <button @click="logOut">logout</button>
+  </header>
+  <router-view v-if="isAuthenticated"> </router-view>
 </template>
 
 <script lang="ts">
@@ -46,3 +45,20 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+header {
+  height: 3rem;
+}
+
+header,
+.global__nav {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.global__nav-link {
+  margin-right: 1rem;
+}
+</style>

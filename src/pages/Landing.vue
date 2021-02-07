@@ -1,8 +1,14 @@
 <template>
-  <div>Landing!</div>
-  <input v-model="password" type="text" />
-  <button @click="checkPassword">Enter</button>
-  <span>{{ feedback }}</span>
+  <div class="landing__wrapper container">
+    <div class="landing__container">
+      <h1>Landing!</h1>
+      <form id="authenticate" @submit="checkPassword">
+        <input v-model="password" type="text" />
+        <button type="submit" form="authenticate">Enter</button>
+      </form>
+      <span>{{ feedback }}</span>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -36,3 +42,16 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.landing__wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.landing__container {
+  width: 80%;
+  margin: auto;
+}
+</style>
