@@ -13,8 +13,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue';
-import { AUTH } from './lib/hooks/useIsAuthenticated';
+import { defineComponent } from 'vue';
+import { injectUseIsAuthenticated } from './lib/hooks/useIsAuthenticated';
 import Landing from './pages/Landing.vue';
 
 export default defineComponent({
@@ -23,7 +23,7 @@ export default defineComponent({
     Landing,
   },
   setup() {
-    const isAuthenticated = inject(AUTH);
+    const { isAuthenticated } = injectUseIsAuthenticated();
 
     return {
       isAuthenticated,
@@ -31,7 +31,9 @@ export default defineComponent({
   },
   watch: {
     isAuthenticated(val) {
-      console.log('App:', val);
+      if (val) {
+        this.$router.push('/home');
+      }
     },
   },
 });
