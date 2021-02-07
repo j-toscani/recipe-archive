@@ -6,19 +6,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, inject } from 'vue';
-import useTimeoutRef from '../lib/useTimeoutRef';
+import { defineComponent, ref } from 'vue';
+import { injectUseIsAuthenticated } from '../lib/hooks/useIsAuthenticated';
+import useTimeoutRef from '../lib/refs/useTimeoutRef';
 
 export default defineComponent({
   name: 'Landing',
   setup() {
     const feedback = useTimeoutRef('', '', 3000);
     const password = ref('');
-    const isAuthenticated = inject('isAuthenticated');
-    const updateIsAuthenticated = inject('updateIsAuthenticated');
+    const { isAuthenticated, setIsAuthenticated } = injectUseIsAuthenticated();
 
     function checkPassword() {
-      updateIsAuthenticated(password.value);
+      setIsAuthenticated(password.value);
 
       if (isAuthenticated.value) {
         feedback.value = 'Password is correct';

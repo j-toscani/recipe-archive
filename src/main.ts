@@ -1,6 +1,8 @@
-import { createApp } from 'vue';
+import './index.css';
+import useIsAuthenticated, { AUTH } from './lib/hooks/useIsAuthenticated';
+import { createApp, provide } from 'vue';
+
 import App from './App.vue';
 import router from './routes/Router';
-import './index.css';
 
-createApp(App).use(router).mount('#app');
+createApp(App).use(router).provide(AUTH, useIsAuthenticated()).mount('#app');

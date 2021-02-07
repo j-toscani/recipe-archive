@@ -1,12 +1,11 @@
-import { customRef } from 'vue';
+import { customRef, Ref } from 'vue';
 
-function useCheckPasswordRef(value: any) {
+function useCheckPasswordRef(value: any): Ref<string | boolean> {
   const password = 'wurst';
   return customRef((track, trigger) => {
     return {
       get() {
         track();
-        console.log(password, value === password);
         return value === password;
       },
       set(newValue) {

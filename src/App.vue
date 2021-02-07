@@ -13,9 +13,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide } from 'vue';
+import { defineComponent, inject } from 'vue';
+import { AUTH } from './lib/hooks/useIsAuthenticated';
 import Landing from './pages/Landing.vue';
-import useCheckPasswordRef from './lib/useCheckPasswordRef';
 
 export default defineComponent({
   name: 'App',
@@ -23,14 +23,7 @@ export default defineComponent({
     Landing,
   },
   setup() {
-    const isAuthenticated = useCheckPasswordRef('');
-
-    function updateIsAuthenticated(password: string) {
-      isAuthenticated.value = password;
-    }
-
-    provide('isAuthenticated', isAuthenticated);
-    provide('updateIsAuthenticated', updateIsAuthenticated);
+    const isAuthenticated = inject(AUTH);
 
     return {
       isAuthenticated,
