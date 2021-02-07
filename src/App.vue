@@ -3,9 +3,8 @@
 
   <header v-if="isAuthenticated" class="container">
     <nav class="global__nav">
-      <router-link cass="global__nav-link" to="/home">Home</router-link>
       <router-link to="/search"> Search</router-link>
-      <router-link to="/create"> Create</router-link>
+      <router-link to="/new"> Create </router-link>
     </nav>
     <button @click="logOut">logout</button>
   </header>
@@ -37,7 +36,7 @@ export default defineComponent({
   watch: {
     isAuthenticated(newVal, oldVal) {
       if (newVal) {
-        this.$router.push('/home');
+        this.$router.push('/search');
       } else if (newVal !== oldVal && !newVal) {
         this.$router.push('/');
       }

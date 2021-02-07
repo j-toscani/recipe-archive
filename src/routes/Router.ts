@@ -1,22 +1,26 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
-import Home from '../pages/Home.vue';
+import Document from '../pages/create/Document.vue';
+import Recipe from '../pages/create/Recipe.vue';
 import Landing from '../pages/Landing.vue';
 import Create from '../pages/Create.vue';
 import Search from '../pages/Search.vue';
 
-// 2. Define some routes
-// Each route should map to a component.
-// We'll talk about nested routes later.
 const routes = [
   { path: '/', component: Landing },
-  { path: '/home', component: Home },
-  { path: '/create', component: Create },
+  {
+    path: '/new',
+    component: Create,
+    children: [
+      { path: 'recipe', component: Recipe },
+      { path: 'document', component: Document },
+    ],
+  },
   { path: '/search', component: Search },
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 
