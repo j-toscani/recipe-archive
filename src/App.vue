@@ -30,9 +30,11 @@ export default defineComponent({
     };
   },
   watch: {
-    isAuthenticated(val) {
-      if (val) {
+    isAuthenticated(newVal, oldVal) {
+      if (newVal) {
         this.$router.push('/home');
+      } else if (newVal !== oldVal && !newVal) {
+        this.$router.push('/');
       }
     },
   },
