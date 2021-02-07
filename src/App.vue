@@ -6,6 +6,7 @@
         <router-link to="/home">Home</router-link>
         <router-link to="/search"> Search</router-link>
         <router-link to="/create"> Create</router-link>
+        <button @click="logOut">logout</button>
       </nav>
       <router-view> </router-view>
     </template>
@@ -23,10 +24,15 @@ export default defineComponent({
     Landing,
   },
   setup() {
-    const { isAuthenticated } = injectUseIsAuthenticated();
+    const { isAuthenticated, setIsAuthenticated } = injectUseIsAuthenticated();
+
+    function logOut() {
+      setIsAuthenticated('');
+    }
 
     return {
       isAuthenticated,
+      logOut,
     };
   },
   watch: {
