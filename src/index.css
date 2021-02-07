@@ -1,8 +1,63 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('./fonts/Lato-Regular.ttf') format('truetype');
+}
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+  font-size: clamp(16px, 1.25vw, 22px);
+  color: var(--font);
+  font-family: 'Lato', sans-serif;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  font-family: 'Lato', sans-serif;
+}
+
+:root {
+  --font: rgba(0, 0, 0, 0.85);
+  --main-100: 221, 112, 70;
+  --main-200: 255, 221, 140;
+  --main-300: 244, 239, 230;
+  --main-400: 205, 221, 70;
+  --main-500: 82, 133, 63;
+  --success-200: #367b48;
+  --error-200: #b54248;
+  --warning-200: #cab23f;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  padding: 0 10%;
+}
+
+button {
+  display: block;
+  border: 1px var(--font) solid;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 1.25rem;
+  border-radius: 1rem;
+  background: white;
+}
+
+input {
+  padding: 0.25rem 0.5rem;
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
 }
