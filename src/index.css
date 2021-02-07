@@ -1,14 +1,21 @@
+@font-face {
+  font-family: 'Lato';
+  src: url('./fonts/Lato-Regular.ttf') format('truetype');
+}
+
 html {
   box-sizing: border-box;
   height: 100%;
   font-size: clamp(16px, 1.25vw, 22px);
   color: var(--font);
+  font-family: 'Lato', sans-serif;
 }
 
 *,
 *::after,
 *::before {
   box-sizing: inherit;
+  font-family: 'Lato', sans-serif;
 }
 
 :root {
@@ -42,8 +49,8 @@ body {
 button {
   display: block;
   border: 1px var(--font) solid;
-  padding: 0.25rem 0.5rem;
-  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
   font-size: 1.25rem;
   border-radius: 1rem;
   background: white;
@@ -51,5 +58,6 @@ button {
 
 input {
   padding: 0.25rem 0.5rem;
+  margin: 0.5rem 0;
   font-size: 1.5rem;
 }

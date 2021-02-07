@@ -1,7 +1,7 @@
 <template>
   <landing v-if="!isAuthenticated" />
 
-  <header v-if="isAuthenticated">
+  <header v-if="isAuthenticated" class="container">
     <nav class="global__nav">
       <router-link cass="global__nav-link" to="/home">Home</router-link>
       <router-link to="/search"> Search</router-link>
@@ -9,7 +9,7 @@
     </nav>
     <button @click="logOut">logout</button>
   </header>
-  <router-view v-if="isAuthenticated"> </router-view>
+  <router-view v-if="isAuthenticated" class="container page__content"> </router-view>
 </template>
 
 <script lang="ts">
@@ -47,18 +47,23 @@ export default defineComponent({
 </script>
 
 <style scoped>
-header {
-  height: 3rem;
-}
-
 header,
 .global__nav {
   flex-basis: 50%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+header {
+  border-bottom: 1px solid black;
 }
 
 .global__nav-link {
   margin-right: 1rem;
+}
+
+.page__content {
+  padding-top: 2rem;
 }
 </style>

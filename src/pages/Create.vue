@@ -1,5 +1,7 @@
 <template>
-  <div>Create!</div>
+  <div>
+    <h2>Create!</h2>
+  </div>
 </template>
 
 <script lang="ts">
