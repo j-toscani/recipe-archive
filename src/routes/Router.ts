@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Document from '../pages/create/Document.vue';
+import CreateDefault from '../pages/create/Index.vue';
 import Recipe from '../pages/create/Recipe.vue';
 import Landing from '../pages/Landing.vue';
-import Create from '../pages/Create.vue';
+import Create from '../pages/New.vue';
 import Search from '../pages/Search.vue';
 
 const routes = [
@@ -12,6 +13,7 @@ const routes = [
     path: '/new',
     component: Create,
     children: [
+      { path: '', component: CreateDefault },
       { path: 'recipe', component: Recipe },
       { path: 'document', component: Document },
     ],
