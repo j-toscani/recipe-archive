@@ -17,6 +17,6 @@
   },
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "none"
+    "prettier/prettier": "off"
   }
 }
