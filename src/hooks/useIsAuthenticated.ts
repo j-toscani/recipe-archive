@@ -1,13 +1,15 @@
-import { InjectionKey, inject } from 'vue';
-import useCheckPasswordRef from '../refs/useCheckPasswordRef';
+import { InjectionKey, inject, ref, Ref } from 'vue';
+import ApiFetch from '../api/ApiFetch';
 
-function useIsAuthenticated() {
-  const isAuthenticated = useCheckPasswordRef('');
+function useIsAuthenticated(): {
+  isAuthenticated: Ref<boolean>;
+  setIsAuthenticated: () => void;
+} {
+  const isAuthenticated = ref(false);
 
-  function setIsAuthenticated(password: string) {
-    isAuthenticated.value = password;
+  function setIsAuthenticated() {
+    isAuthenticated.value = ApiFetch.token ? true : false;
   }
-
   return {
     isAuthenticated,
     setIsAuthenticated,

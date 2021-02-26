@@ -6,14 +6,14 @@
       <router-link to="/search"> Search</router-link>
       <router-link to="/new"> Create </router-link>
     </nav>
-    <button @click="logOut">logout</button>
+    <button>logout</button>
   </header>
   <router-view v-if="isAuthenticated" class="container page__content"> </router-view>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { injectUseIsAuthenticated } from './lib/hooks/useIsAuthenticated';
+import { injectUseIsAuthenticated } from './hooks/useIsAuthenticated';
 import Landing from './pages/Landing.vue';
 
 export default defineComponent({
@@ -22,15 +22,10 @@ export default defineComponent({
     Landing,
   },
   setup() {
-    const { isAuthenticated, setIsAuthenticated } = injectUseIsAuthenticated();
-
-    function logOut() {
-      setIsAuthenticated('');
-    }
+    const { isAuthenticated } = injectUseIsAuthenticated();
 
     return {
       isAuthenticated,
-      logOut,
     };
   },
   watch: {
