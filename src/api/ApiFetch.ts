@@ -7,7 +7,7 @@ class _ApiFetch {
   constructor() {
     this.baseUrl = config.baseUrl;
     this.token = null;
-    this._headers = {};
+    this._headers = { 'Content-Type': 'application/json' };
   }
   private convertParams(paramsObject: any) {
     const params = [];
@@ -31,7 +31,8 @@ class _ApiFetch {
   }
 
   private fetch(url: string, method: string, options: any) {
-    return fetch(`${this.baseUrl}${url}`, { method, ...options });
+    console.log('Called the right fetch!');
+    return fetch(`${this.baseUrl}${url}`, { method, headers: this.headers, ...options });
   }
   set header(value: [string, string]) {
     this._headers[value[0]] = value[1];
@@ -52,6 +53,7 @@ class _ApiFetch {
     if (body) {
       body = JSON.stringify(options?.body);
     }
+    console.log(this.fetch);
     return this.fetch(url, 'POST', { body });
   }
   put(url: string, options: { body?: any } = {}) {

@@ -1,11 +1,18 @@
 import { InjectionKey, inject, ref, Ref } from 'vue';
 import ApiFetch from '../api/ApiFetch';
+import { checkCooky } from '../lib/cookies';
 
 function useIsAuthenticated(): {
   isAuthenticated: Ref<boolean>;
   setIsAuthenticated: () => void;
 } {
-  const isAuthenticated = ref(false);
+  const token = checkCooky('me@mail.com');
+
+  if (token) {
+    ApiFetch.token = token;
+  }
+
+  const isAuthenticated = ref(token ? true : false);
 
   function setIsAuthenticated() {
     isAuthenticated.value = ApiFetch.token ? true : false;

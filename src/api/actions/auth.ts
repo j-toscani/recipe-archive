@@ -1,46 +1,44 @@
 import ApiFetch from '../ApiFetch';
 import cookies from '../../lib/cookies';
-import useIsAuthenticated from '../../hooks/useIsAuthenticated';
 
-async function login(username: string, password: string): Promise<string | undefined> {
+async function login(name: string, password: string): Promise<string | undefined> {
   const body = {
-    username,
+    name,
     password,
   };
 
   try {
-    const response = await ApiFetch.post('/login', { body });
+    const response = await ApiFetch.post('/auth/login', { body });
     return response.json();
   } catch (error) {
     console.error(error);
   }
 }
-async function logout(username: string): Promise<string | undefined> {
+async function logout(name: string): Promise<any> {
   const body = {
-    username,
+    name,
   };
 
   try {
-    const response = await ApiFetch.post('/logout', { body });
-    return response.json();
+    const response = await ApiFetch.post('/auth/logout', { body });
+    return response.json;
   } catch (error) {
     console.error(error);
   }
 }
 
-function setTokenDecorator(getToken: (username: string, password: string) => Promise<any>) {
+function setTokenDecorator(getToken: (name: string, password: string) => Promise<any>) {
   return async function (...rest: string[]) {
     let tokenResponse;
     if (rest.length === 2) {
-      const [username, password] = rest;
-      tokenResponse = await getToken(username, password);
+      const [name, password] = rest;
+      tokenResponse = await getToken(name, password);
 
       if (tokenResponse) {
         const token = tokenResponse;
 
         ApiFetch.token = token;
         cookies.set('token', token, 7);
-        useIsAuthenticated().setIsAuthenticated();
       }
     }
 
@@ -48,17 +46,15 @@ function setTokenDecorator(getToken: (username: string, password: string) => Pro
   };
 }
 
-function removeTokenDecorator(removeToken: (username: string) => Promise<any>) {
-  return function (...rest: string[]) {
-    removeToken(rest[0])
-      .then((response: any) => {
-        ApiFetch.token = null;
-        cookies.delete(rest[0]);
-        useIsAuthenticated().setIsAuthenticated();
-
-        return response;
-      })
-      .catch((err: any) => console.error(err));
+function removeTokenDecorator(removeToken: (name: string) => Promise<any>) {
+  return async function (...rest: string[]) {
+    try {
+      await removeToken(rest[0]);
+      ApiFetch.token = null;
+      cookies.delete(rest[0]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 }
 

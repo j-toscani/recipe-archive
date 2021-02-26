@@ -1,5 +1,5 @@
 import './index.css';
-import useIsAuthenticated, { AUTH } from './lib/hooks/useIsAuthenticated';
+import useIsAuthenticated, { AUTH } from './hooks/useIsAuthenticated';
 import { createApp, provide } from 'vue';
 
 import App from './App.vue';

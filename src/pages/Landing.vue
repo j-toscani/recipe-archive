@@ -2,7 +2,7 @@
   <div class="landing__wrapper container">
     <div class="landing__container">
       <h1>Please submit the Password.</h1>
-      <form id="authenticate" @submit.prevent="checkPassword">
+      <form id="authenticate" @submit.prevent="handleLogin">
         <input v-model="name" type="text" />
         <input v-model="password" type="text" />
         <button type="submit" form="authenticate">Enter</button>
@@ -15,6 +15,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { injectUseIsAuthenticated } from '../hooks/useIsAuthenticated';
+import auth from '../api/actions/auth';
 import useTimeoutRef from '../refs/useTimeoutRef';
 
 export default defineComponent({
@@ -23,21 +24,26 @@ export default defineComponent({
     const feedback = useTimeoutRef('', '', 3000);
     const password = ref('');
     const name = ref('');
-    const { isAuthenticated } = injectUseIsAuthenticated();
+    const { isAuthenticated, setIsAuthenticated } = injectUseIsAuthenticated();
 
-    function checkPassword() {
-      if (isAuthenticated.value) {
-        feedback.value = 'Password is correct';
-      } else {
-        feedback.value = 'Password is wrong';
+    const handleLogin = async () => {
+      try {
+        await auth.login(name.value, password.value);
+        setIsAuthenticated();
+      } catch (error) {
+        console.error(error);
+        feedback.value = 'Wrong credentials!';
       }
-    }
+
+      password.value = '';
+      name.value = '';
+    };
 
     return {
       feedback,
       password,
       name,
-      checkPassword,
+      handleLogin,
       isAuthenticated,
     };
   },
